@@ -6,13 +6,13 @@
             <div class="pop-mask" v-if="notice"></div>
             <div class="no-choice" :class="animation?'showin':'hideout'">
               <img src="https://yun.duiba.com.cn/yoofans/images/201804/miniapp/no-choice.png" class="cry-icon" />
-              <div class="tac word">你还未选择任何音频课程</div>
-              <div class="tac word">请先选择后在点击收听</div>
+              <div class="tac word">提升你啊</div>
+              <div class="tac word">你得干啥呀</div>
               <button class="know" @click="iKnow()">我知道了</button>
             </div>
           </div>
         </div>
-        <el-button size="small" class="mt20" type="primary" @click="handlePhone1">点击滑动图一</el-button>
+        <el-button size="small" class="mt20" type="primary" @click="handlePhone1">点击操作图一</el-button>
         <div class="phone fl w460">
           <div class="box">
               <div class="loader-01"></div>
