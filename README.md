@@ -2,7 +2,6 @@
 vue+element+css+动画
 ## Build Setup
 
-``` bash
 # install dependencies
 npm install
 
