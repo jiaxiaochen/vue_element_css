@@ -6,9 +6,9 @@
             <p class="page-title">CSS动画</p>
             <div class="page-container">
               <el-menu :collapse="isCollapse" class="menu-collapse" :default-active="pathIndex">
-                <router-link :to="{ path: '/know/slide' }">
+                <router-link :to="{ path: '/know/slideLoad' }">
                   <el-menu-item index="1">
-                    <span>简单的滑动滑入划出</span>
+                    <span>底部滑入滑出</span>
                   </el-menu-item>
                 </router-link>
               </el-menu>
@@ -50,7 +50,7 @@
         let pathIndex;
         let path = this.$route.path;
         switch (path) {
-          case '/know/slide':
+          case '/know/slideLoad':
             pathIndex = "1";
             break;
           default:

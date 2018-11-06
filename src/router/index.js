@@ -22,9 +22,9 @@ export const constantRouterMap = [
             }
           },
           {
-            path: 'slide',
+            path: 'slideLoad',
             component: function (resolve) {
-              require(['../views/know/pages/slide'], resolve)
+              require(['../views/know/pages/slideLoad'], resolve)
             }
           }
           ]

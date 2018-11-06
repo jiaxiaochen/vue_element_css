@@ -5,7 +5,7 @@
       <div class="sidebar-container">
           <el-col  :span="24">
             <el-menu  class="el-menu-vertical-demo"  background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-              <router-link :to="{ path: '/know' }">
+              <router-link :to="{ path: '/know/slideLoad' }">
                 <el-menu-item index="1">
                   <span slot="title">   
                     <span class="title-main">
