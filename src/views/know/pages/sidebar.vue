@@ -3,7 +3,6 @@
       <el-container>
         <el-aside :width="hiddenWith">
           <div class="side-wrap" v-show="isShow">
-            <p class="page-title">CSS动画</p>
             <div class="page-container">
               <el-menu :collapse="isCollapse" class="menu-collapse" :default-active="pathIndex">
                 <router-link :to="{ path: '/know/slideLoad' }">
@@ -86,13 +85,7 @@
   
   <!-- Add "scoped" attribute to limit CSS to this component only -->
   <style lang="less" scoped>
-    .abnormalOrderNum{
-        color: red !important;
-        padding: 0 10px;
-        margin-left: -27px;
-    }
     .main {
-      margin-left: 90px;
       a {
         text-decoration: none;
       }
@@ -133,9 +126,8 @@
     }
     .page-container {
       position: fixed;
-      top: 60px;
+      top: 10px;
       bottom: 0;
-      overflow: scroll;
     }
     .side-wrap {
       width: 180px;

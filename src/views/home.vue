@@ -1,29 +1,6 @@
 <template>
   <section class="main">
-  <el-row :span="24">
-    <div class="nav-bar">
-      <div class="sidebar-container">
-          <el-col  :span="24">
-            <el-menu  class="el-menu-vertical-demo"  background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-              <router-link :to="{ path: '/know/slideLoad' }">
-                <el-menu-item index="1">
-                  <span slot="title">   
-                    <span class="title-main">
-                      CSS知识   
-                    </span>
-                  </span>
-                </el-menu-item>
-              </router-link>
-            </el-menu>
-          </el-col>
-      </div>
-    </div>
-    <el-col :span="24">
-      <div class="bg-purple">
-        <router-view/>
-      </div>
-    </el-col> 
-  </el-row>
+      <router-view/>
   </section>
 </template>
 

@@ -200,6 +200,7 @@ export default {
     font-size: 30px;
     color: #438cf1;
     padding: 1em;
+    margin-left: 16px;
     margin-bottom: .25em;
     vertical-align: top;
     -webkit-transition: .3s color, .3s border;

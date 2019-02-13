@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
+b, u, i, 
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
@@ -17,13 +17,15 @@ time, mark, audio, video {
   font-size: 100%;
   vertical-align: baseline;
 }
+html, body, section{
+  height: 100%;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
 body {
-  line-height: 1;
   -webkit-font-smoothing: antialiased!important;
 }
 ol, ul {
@@ -50,5 +52,41 @@ button:focus{
 }
 body {
   margin: 0;
-  min-width: 1280px;
+}
+.clearfix {
+  *zoom: 1; 
+}
+.clearfix:before, .clearfix:after {
+    content: ' ';
+    display: table;
+  }
+.clearfix:after {
+  clear: both;
+}
+.fl {
+  float: left !important;
+}
+
+.fr {
+  float: right !important;
+}
+.otw{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}
+.tar{
+  text-align: right;
+}
+.vam{
+  vertical-align: middle;
+}
+.tac{
+  text-align: center;
+}
+.tar{
+  text-align: right;  
+}
+.cp{
+  cursor: pointer;
 }

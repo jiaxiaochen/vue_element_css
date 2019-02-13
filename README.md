@@ -20,5 +20,6 @@ npm run e2e
 # run all tests
 npm test
 
-# vue-cli + ElementUI + css3 + 动画
-1.css设置动画从底部滑入滑出和loading
+# vue-cli + ElementUI + css3 + 动画/音乐
+1.css设置动画从底部滑入滑出和loading /know/slideLoad
+2.music文件夹/music或者/fmmusic

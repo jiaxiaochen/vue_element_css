@@ -10,26 +10,33 @@ export const constantRouterMap = [
     },
     children: [ 
       {
-          path: '/know',
-          component: function (resolve) {
-            require(['../views/know/pages/sidebar'], resolve)
-          },
-          children: [
-          {
-            path: '/',
-            component: function (resolve) {
-              require(['../views/know/pages/page'], resolve)
-            }
-          },
+        path: '/know',
+        component: function (resolve) {
+          require(['../views/know/pages/sidebar'], resolve)
+        },
+        children: [
           {
             path: 'slideLoad',
             component: function (resolve) {
               require(['../views/know/pages/slideLoad'], resolve)
             }
           }
-          ]
+        ],
+      },
+      {
+        path: '/music',
+        component: function (resolve) {
+          require(['../views/know/music/music'], resolve)
+        },
+      },
+      {
+        path: '/fmmusic',
+        component: function (resolve) {
+          require(['../views/know/music/fmMusic'], resolve)
+        }
       }
-    ]
+    ],
+
   }
 ]
 
