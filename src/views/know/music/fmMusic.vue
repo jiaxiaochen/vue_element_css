@@ -3,7 +3,7 @@
       <section id="fm-container">
         <main class="layout">
           <div class="aside fl">
-            <div class="image"></div>
+            <div class="image" :style="{ backgroundImage: 'url('+ smallImg +')'}"></div>
             <div class="icon">
               <span class="iconfont icon-heart"></span>
               <span class="iconfont icon-pause"></span>
@@ -12,7 +12,7 @@
           </div>
           <div class="detail">
             <div class="tag">{{tagName}}</div>
-            <h1>It's a New Day</h1>
+            <h1>{{song.title}}</h1>
             <ul class="num">
               <li><span class="iconfont icon-earphone"></span>3333</li>
               <li><span class="iconfont icon-heart"></span>128</li>
@@ -24,7 +24,7 @@
               </div>
               <div class="time">1:01</div>
             </div>
-            <div class="singer">周杰伦</div>
+            <div class="singer">{{song.artist}}</div>
             <div class="lyric">
               <p>歌词</p>
             </div>  
@@ -37,8 +37,8 @@
             <div class="box" ref="box">
               <ul :style="{width: totalWidth +'px',left: dis + 'px'}" ref="ul">
                 <li v-for="item in imageList"> 
-                  <div class="image" ref="image" @click = "getDetailMusic(item)">
-                    <div class="cover" :style="{background:'url('+ item.cover_middle +')'}"></div>  
+                  <div class="img" ref="img" @click = "getDetailMusic(item)">
+                    <div class="cover" :style="{backgroundImage:'url('+ item.cover_middle +')'}"></div>  
                     <h3>{{item.name}}</h3>
                   </div>
                 </li>
@@ -47,7 +47,7 @@
           </div>
         </footer>
       </section>
-      <div class="bg"></div>
+      <div class="bg" :style="{ backgroundImage: 'url('+ bigImg +')'}"></div>
     </div>
 </template>
 
@@ -64,6 +64,9 @@ export default {
       dis:null,
       isAnimate: true,//设置一个标识是否在点击,true为没在点击
       tagName: "标签",
+      song: {},
+      bigImg: '',
+      smallImg: '',
     }
   },
   filters: {
@@ -83,7 +86,7 @@ export default {
     setFooterImage() {
       let _this = this;
       _this.$nextTick(function () {
-        _this.liWidth = _this.$refs.image[0].getBoundingClientRect().width;
+        _this.liWidth = _this.$refs.img[0].getBoundingClientRect().width;
         let count = _this.imageList.length;
         _this.totalWidth = _this.liWidth * count;
       })
@@ -126,16 +129,14 @@ export default {
       }
     },
     getDetailMusic(item) { 
-      // $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php',{channel: this.channelId}).done(function(ret){
-      //   _this.song = ret['song'][0]
-      //   _this.setMusic()
-      //   _this.loadLyric()
-      // })
       console.log(item)
       let _this = this;
-      _this.tagName = item.name
+      _this.bigImg = item.cover_big;
+      _this.smallImg = item.cover_small;
+      _this.tagName = item.name;
       _this.$http.get('//jirenguapi.applinzi.com/fm/getSong.php',{channel: item.channelId}).then(res => {
-        console.log(res.data)
+         _this.song = res.data['song'][0]
+         console.log(_this.song)
       });
     }
     
@@ -187,7 +188,8 @@ html, body, section {
     top: -10px;
     bottom: -10px;
     right: -10px;
-    background: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-big) center center no-repeat;
+    background-repeat:no-repeat;
+    background-position:center center;
     background-size: cover;
     filter: blur(4px);
     &:before{
@@ -208,7 +210,8 @@ main{
   .image{
     width: 40vh;
     height: 40vh;
-    background: url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-big) center center no-repeat;
+    background-repeat:no-repeat;
+    background-position:center center;
     background-size: cover;
   }
   .icon{
