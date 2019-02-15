@@ -11,7 +11,7 @@
             </div>
           </div>
           <div class="detail">
-            <div class="tag">标签</div>
+            <div class="tag">{{tagName}}</div>
             <h1>It's a New Day</h1>
             <ul class="num">
               <li><span class="iconfont icon-earphone"></span>3333</li>
@@ -32,49 +32,15 @@
         </main>
         <footer class="footer-bar">
           <div class="layout">
-            <span class="iconfont icon-left"></span>
-            <span class="iconfont icon-right"></span>
-            <div class="box">
-              <ul>
-                <li data-channel-id="public_tuijian_spring" data-channel-name="漫步春天">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_spring.jpg-small)"></div>  
-                  <h3>漫步春天</h3>
-                </li>
-                <li data-channel-id="public_tuijian_autumn" data-channel-name="秋日私语">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_autumn.jpg-small)"></div>  
-                  <h3>秋日私语</h3>
-                </li>
-                <li data-channel-id="public_tuijian_winter" data-channel-name="温暖冬日">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_winter.jpg-small)"></div>  
-                  <h3>温暖冬日</h3>
-                </li>
-                <li data-channel-id="public_tuijian_rege" data-channel-name="热歌">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_rege.jpg-small)"></div>  
-                  <h3>热歌</h3>
-                </li>
-                <li data-channel-id="public_tuijian_ktv" data-channel-name="KTV金曲">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_ktv.jpg-small)"></div>  
-                  <h3>KTV金曲</h3>
-                </li>
-                <li data-channel-id="public_yuzhong_yueyu" data-channel-name="粤语">  
-                <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_yuzhong_yueyu.jpg-small)"></div>  
-                <h3>粤语</h3>
-                </li>
-                <li data-channel-id="public_tuijian_winter" data-channel-name="温暖冬日">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_winter.jpg-small)"></div>  
-                  <h3>温暖冬日</h3>
-                </li>
-                <li data-channel-id="public_tuijian_rege" data-channel-name="热歌">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_rege.jpg-small)"></div>  
-                  <h3>热歌</h3>
-                </li>
-                <li data-channel-id="public_tuijian_ktv" data-channel-name="KTV金曲">  
-                  <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_tuijian_ktv.jpg-small)"></div>  
-                  <h3>KTV金曲</h3>
-                </li>
-                <li data-channel-id="public_yuzhong_yueyu" data-channel-name="粤语">  
-                <div class="cover" style="background-image:url(http://cloud.hunger-valley.com/music/public_yuzhong_yueyu.jpg-small)"></div>  
-                <h3>粤语</h3>
+            <span class="iconfont icon-left" @click = "turnLeft()"></span>
+            <span class="iconfont icon-right" @click = "turnRight()"></span>
+            <div class="box" ref="box">
+              <ul :style="{width: totalWidth +'px',left: dis + 'px'}" ref="ul">
+                <li v-for="item in imageList"> 
+                  <div class="image" ref="image" @click = "getDetailMusic(item)">
+                    <div class="cover" :style="{background:'url('+ item.cover_middle +')'}"></div>  
+                    <h3>{{item.name}}</h3>
+                  </div>
                 </li>
               </ul> 
             </div>        
@@ -90,13 +56,89 @@ import qs from 'qs'
 export default {
   data () {
     return {
+      imageList:[],
+      totalWidth: null,
+      isStart: false, //向左点击可以跳转
+      isEnd: true, //向右点击可以调换
+      liWidth: null,
+      dis:null,
+      isAnimate: true,//设置一个标识是否在点击,true为没在点击
+      tagName: "标签",
     }
   },
   filters: {
   },
   created () {
   },
+  mounted () {
+    this.getImageList();
+  },
   methods: {
+    getImageList(){
+      this.$http.get('//jirenguapi.applinzi.com/fm/getChannels.php').then(res => {
+        this.imageList = res.data.channels
+        this.setFooterImage();
+      });
+    },
+    setFooterImage() {
+      let _this = this;
+      _this.$nextTick(function () {
+        _this.liWidth = _this.$refs.image[0].getBoundingClientRect().width;
+        let count = _this.imageList.length;
+        _this.totalWidth = _this.liWidth * count;
+      })
+    },
+    turnLeft() {
+      let _this = this;
+      if(!_this.isAnimate) return;
+      if(_this.isStart) {
+        _this.isAnimate = false;
+        let boxWidth = _this.$refs.box.getBoundingClientRect().width;
+        let ulContainer = _this.$refs.ul.getBoundingClientRect();
+        let ulWidth = ulContainer.width;
+        let ulleft = ulContainer.left;
+        _this.dis =  _this.dis + Math.floor(boxWidth/_this.liWidth) * _this.liWidth
+        _this.isEnd = true;
+        _this.isAnimate = true;
+        // 如果left的寬度+容器的宽度大于等于整体宽度
+        if( _this.dis >= 0){
+          this.isStart = false;
+        }
+      }
+      
+    },
+    turnRight() {
+      let _this = this;
+      if(!_this.isAnimate) return;
+      if(_this.isEnd) {
+        _this.isAnimate = false;
+        let boxWidth = _this.$refs.box.getBoundingClientRect().width;
+        let ulContainer = _this.$refs.ul.getBoundingClientRect();
+        let ulWidth = ulContainer.width;
+        let ulleft = ulContainer.left;
+        _this.dis =  _this.dis - Math.floor(boxWidth/_this.liWidth) * _this.liWidth
+        _this.isStart = true;
+        this.isAnimate = true;
+        // 如果left的寬度+容器的宽度大于等于整体宽度
+        if(boxWidth - _this.dis >=  ulWidth){
+          this.isEnd = false;
+        }
+      }
+    },
+    getDetailMusic(item) { 
+      // $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php',{channel: this.channelId}).done(function(ret){
+      //   _this.song = ret['song'][0]
+      //   _this.setMusic()
+      //   _this.loadLyric()
+      // })
+      console.log(item)
+      let _this = this;
+      _this.tagName = item.name
+      _this.$http.get('//jirenguapi.applinzi.com/fm/getSong.php',{channel: item.channelId}).then(res => {
+        console.log(res.data)
+      });
+    }
+    
   }
 }
 </script>
@@ -265,6 +307,7 @@ footer{
       display: block;
       clear: both;
     }
+    
   }
   li{
     float: left;
