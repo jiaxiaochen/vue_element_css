@@ -146,6 +146,9 @@ export default {
 <style lang="less" scoped>
 html, body, section {
     overflow: hidden;
+    color: #fff;
+    height: 100%;
+    overflow: hidden;
 }
 * {
     margin: 0;

@@ -34,6 +34,12 @@ export const constantRouterMap = [
         component: function (resolve) {
           require(['../views/know/music/fmMusic'], resolve)
         }
+      },
+      {
+        path: '/arrow',
+        component: function (resolve) {
+          require(['../views/know/next/arrow'], resolve)
+        }
       }
     ],
 
